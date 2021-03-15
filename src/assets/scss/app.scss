@@ -1,0 +1,51 @@
+$fa-font-path: "../../../node_modules/font-awesome-sass/assets/fonts/font-awesome/";
+@import "../../../node_modules/font-awesome-sass/assets/stylesheets/font-awesome";
+@import "~foundation-sites/scss/foundation";
+@import "settings";
+@include foundation-flex-classes;
+@include foundation-flex-grid;
+@include foundation-everything(true);
+
+body{
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #4d4d4d;
+  font-size: 18px;
+  line-height: 1.4em; 
+}
+.text-line-through {
+  text-decoration: line-through;
+}
+
+.button {
+  margin: 0;
+}
+
+.bottom_bar {
+  background-color: #0000002e;
+  font-size: 1.5rem;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  padding: 1.5rem;
+
+  a {
+  color: #0b0a0ab0;
+
+
+    &.router-link-exact-active {
+      color:  #0b0a0a;
+    }
+
+    i{
+      margin-right: 10px
+    }
+  }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all .2s ease;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0;
+}
