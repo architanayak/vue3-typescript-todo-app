@@ -3,7 +3,7 @@ import { findIndex } from "lodash";
 export enum MutationType {
   SetTask = "SET_TASKS",
   CompleteTask = "COMPLETE_TASK",
-  DeleteTask = "REMOVE_TASK"
+  DeleteTask = "REMOVE_TASK",
 }
 export type Mutations = {
   [MutationType.SetTask](state: any, task: any): void;
@@ -15,11 +15,11 @@ export const mutations: MutationTree<any> & Mutations = {
     state.tasks.push(task);
   },
   [MutationType.DeleteTask](state, task) {
-    let taskIndex = findIndex(state.tasks, task);
-    state.tasks.splice(taskIndex, ++taskIndex);
+    const taskIndex = findIndex(state.tasks, task);
+    state.tasks.splice(taskIndex, 1);
   },
   [MutationType.CompleteTask](state: any, task: any) {
     const taskIndex = findIndex(state.tasks, task);
     state.tasks[taskIndex].completed = true;
-  }
+  },
 };
