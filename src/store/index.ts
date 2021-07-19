@@ -1,35 +1,36 @@
-import { createStore } from "vuex";
-import Task from "../models/Task";
-import { findIndex } from "lodash";
+// import { createStore } from "vuex";
+import Task from "@/models/Task";
+import { createStore, Store as VuexStore, CommitOptions } from "vuex";
+import { Mutations, mutations } from "./mutations";
 
-export default createStore({
+export const store = createStore({
   state: {
     tasks: [
       {
         name: "Demo for VueJS and TS",
         createdAt: new Date(),
         updatedAt: new Date(),
-        completed: false
+        completed: false,
       },
       {
         name: "UI design",
         createdAt: new Date(),
         updatedAt: new Date(),
-        completed: false
-      }
-    ] as Task[]
+        completed: false,
+      },
+    ] as Task[],
   },
-  mutations: {
-    setTask: (state, task) => state.tasks.push(task),
-    deleteTask(state, task) {
-      let taskIndex = findIndex(state.tasks, task);
-      state.tasks.splice(taskIndex, ++taskIndex);
-    },
-    completeTask(state, task) {
-      const taskIndex = findIndex(state.tasks, task);
-      state.tasks[taskIndex].completed = true;
-    }
-  },
+  mutations,
   actions: {},
-  modules: {}
+  modules: {},
 });
+export function useStore() {
+  return store as Store;
+}
+export type Store = Omit<VuexStore<any>, "commit"> & {
+  commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
+    key: K,
+    payload: P,
+    options?: CommitOptions
+  ): ReturnType<Mutations[K]>;
+};
